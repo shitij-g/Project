@@ -1,0 +1,73 @@
+For doing mapping...
+
+1. open Elastic search hammer
+2. For seeing existing mapping... select GET http://10.97.218.28:9200/defects/_mapping
+3. For deleting existing mapping select DELETE http://10.97.218.28:9200/defects --> this will delete whole collection.
+4. For providing new mapping...
+Follow below mapping file... add your property as per your configuration...
+
+{
+	"mappings": {
+		"_default_": {
+			"properties": {
+				"title": {
+					"type": "text",
+					"store": true
+				},
+				"description": {
+					"type": "text",
+					"store": true
+				},
+				"factor_number": {
+					"type": "integer",
+					"store": true
+				}
+			},
+			"_all": {
+				"analyzer": "cess_analyzer"
+			}
+		}
+	},
+	"settings": {
+		"index": {
+			"mapping.ignore_malformed": true,
+			"analysis": {
+				"filter": {
+					"light_english_stemmer": {
+						"type": "stemmer",
+						"language": "light_english"
+					},
+					"english_possessive_stemmer": {
+						"type": "stemmer",
+						"language": "possessive_english"
+					},
+					"worddel": {
+						"split_on_case_change": "true",
+						"generate_word_parts": "true",
+						"type": "word_delimiter",
+						"preserve_original": "true"
+					},
+					"cess_stop": {
+						"type": "stop",
+						"stopwords_path": "stopword/stopword.txt"
+					}
+				},
+				"analyzer": {
+					"cess_analyzer": {
+						"filter": ["worddel", "english_possessive_stemmer", "lowercase", "cess_stop", "light_english_stemmer", "asciifolding"],
+						"tokenizer": "standard"
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+
+4. Select Put and type http://10.97.218.28:9200/<collection name>... for providing new mapping.
+5. Check whether new mapping has successfully done... Hit http://10.97.218.28:9200/<Collection name>/_search?&pretty
+6. Hit http://10.97.218.28:9200/<collection_name>/_mapping?pretty
+
+
