@@ -1,0 +1,12 @@
+C:\Users\shitij.g>Tracert myhcl.com
+
+Tracing route to myhcl.com [10.98.134.109]
+over a maximum of 30 hops:
+
+  1     2 ms     1 ms     1 ms  10.112.78.2
+  2    21 ms     5 ms     5 ms  10.112.55.233
+  3     6 ms     6 ms     5 ms  10.226.73.137
+  4     5 ms     5 ms     4 ms  10.226.83.77
+  5     5 ms     4 ms     4 ms  10.98.134.109
+
+Trace complete.
